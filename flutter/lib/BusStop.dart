@@ -1,5 +1,6 @@
 import 'package:eolleroad/AssistButton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class BusStop extends StatefulWidget {
   const BusStop({Key? key}) : super(key: key);
@@ -99,13 +100,22 @@ class StopButton extends StatefulWidget {
 }
 
 class _StopButtonState extends State<StopButton> {
+  FlutterTts flutterTts = FlutterTts();
   bool isButtonPressed = false;
-  //isButtonPressed로 상태값설정
 
   void _onButtonPressed() {
     setState(() {
       isButtonPressed = !isButtonPressed;
     });
+
+    // 음성 출력
+    _speak(isButtonPressed ? "하차가 취소되었습니다." : "하차버튼을 눌렀습니다");
+  }
+
+  Future<void> _speak(String text) async {
+    await flutterTts.setLanguage("ko-KR"); // 음성 언어 설정
+    await flutterTts.setPitch(1); // 음성 피치 설정 (0.5 ~ 2.0)
+    await flutterTts.speak(text); // 텍스트를 음성으로
   }
 
   @override
