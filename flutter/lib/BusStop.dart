@@ -109,7 +109,7 @@ class _StopButtonState extends State<StopButton> {
     });
 
     // 음성 출력
-    _speak(isButtonPressed ? "하차가 취소되었습니다." : "하차버튼을 눌렀습니다");
+    _speak(isButtonPressed ? "하차버튼을 눌렀습니다" : "하차가 취소되었습니다.");
   }
 
   Future<void> _speak(String text) async {
