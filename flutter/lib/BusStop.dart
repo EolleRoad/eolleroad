@@ -1,3 +1,4 @@
+import 'package:eolleroad/AssistButton.dart';
 import 'package:flutter/material.dart';
 
 class BusStop extends StatefulWidget {
@@ -83,7 +84,8 @@ class _BusStopState extends State<BusStop> {
         children: [
           BusNumber(),
           StopButton(),
-          BusStation()
+          BusStation(),
+          AssistButton(),
         ],
       ),
     );
