@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:slidable_button/slidable_button.dart';
+import 'package:eolleroad/Camera.dart';
+import 'package:get/get.dart';
 
 class Option extends StatelessWidget {
   const Option({Key? key}) : super(key: key);
@@ -8,7 +10,9 @@ class Option extends StatelessWidget {
     return Row(
       children: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(Camera());
+          },
           style: ElevatedButton.styleFrom(
               primary: Color(0xff231FAD),
               onPrimary: Colors.white,
