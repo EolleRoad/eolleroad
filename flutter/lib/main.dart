@@ -1,6 +1,4 @@
 import 'package:eolleroad/Home.dart';
-import 'package:eolleroad/Navi.dart';
-import 'package:eolleroad/SpeechScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
       ),
-      home: NavigationScreen(),
+      home: const Home(),
     );
   }
 }
