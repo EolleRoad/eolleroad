@@ -1,3 +1,4 @@
+import 'package:eolleroad/BusStop.dart';
 import 'package:flutter/material.dart';
 import 'package:slidable_button/slidable_button.dart';
 import 'package:eolleroad/Camera.dart';
@@ -25,7 +26,10 @@ class Option extends StatelessWidget {
         ),
         Spacer(flex: 1),
         ElevatedButton(
-          onPressed: () {},
+          //임시로 BusStop으로 연결해둠
+          onPressed: () {
+            Get.to(BusStop());
+          },
           style: ElevatedButton.styleFrom(
               primary: Color(0xffF6B818),
               onPrimary: Colors.black,
