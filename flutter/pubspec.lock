@@ -34,7 +34,7 @@ packages:
     source: hosted
     version: "2.1.1"
   camera:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: camera
       sha256: ebebead3d5ec3d148249331d751d462d7e8c98102b8830a9b45ec96a2bd4333f
@@ -203,14 +203,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.0"
-  flutter_vision:
-    dependency: "direct main"
-    description:
-      name: flutter_vision
-      sha256: "990701bbc7d0d17e75f121932f7fc7b9269b55804789fc4703df35d2c44a5700"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
