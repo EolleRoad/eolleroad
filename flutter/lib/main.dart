@@ -1,13 +1,15 @@
 import 'package:eolleroad/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_vision/flutter_vision.dart';
+import 'package:camera/camera.dart';
 
-FlutterVision vision = FlutterVision();
+List<CameraDescription> cameras = [];
 
-void main() async {
-  await initFlutterVision();
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,16 +24,4 @@ class MyApp extends StatelessWidget {
       home: const Home(),
     );
   }
-}
-
-Future<void> initFlutterVision() async {
-  FlutterVision vision = FlutterVision();
-
-  await vision.loadYoloModel(
-    labels: 'assets/labelss.txt',
-    modelPath: 'assets/yolov5n.tflite',
-    modelVersion: "yolov5",
-    numThreads: 1,
-    useGpu: false,
-  );
 }
