@@ -1,3 +1,4 @@
+import 'package:eolleroad/Camera.dart';
 import 'package:eolleroad/Option.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,12 @@ class Home extends StatelessWidget {
             Get.to(Option());
           },
           child: Text('로그인'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Get.to(Camera());
+          },
+          child: Text('카메라'),
         ),
       ],
     ));

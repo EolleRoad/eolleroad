@@ -1,4 +1,5 @@
 import 'package:eolleroad/BusStop.dart';
+import 'package:eolleroad/Navi.dart';
 import 'package:flutter/material.dart';
 import 'package:slidable_button/slidable_button.dart';
 import 'package:eolleroad/Camera.dart';
@@ -12,7 +13,7 @@ class Option extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            Get.to(Camera());
+            Get.to(BusStop());
           },
           style: ElevatedButton.styleFrom(
               primary: Color(0xff231FAD),
@@ -28,7 +29,7 @@ class Option extends StatelessWidget {
         ElevatedButton(
           //임시로 BusStop으로 연결해둠
           onPressed: () {
-            Get.to(BusStop());
+            Get.to(NavigationScreen());
           },
           style: ElevatedButton.styleFrom(
               primary: Color(0xffF6B818),
@@ -63,16 +64,7 @@ class Option extends StatelessWidget {
         ),
         Container(child: optionButton(context)),
 
-        //슬라이드 버튼_삭제하면 됨
-        HorizontalSlidableButton(
-          width: MediaQuery.of(context).size.width / 3,
-          buttonWidth: 60.0,
-          color: Colors.white,
-          buttonColor: Color(0xffF6B818),
-          dismissible: false,
-          label: Center(child: Text('')),
-          onChanged: (value) => (value) {},
-        ),
+
       ]),
     );
   }

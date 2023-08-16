@@ -86,7 +86,9 @@ class _BusStopState extends State<BusStop> {
           BusNumber(),
           StopButton(),
           BusStation(),
-          AssistButton(),
+          Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.1),
+            child : AssistButton(speakmessage: "이번역은 못골시장, 다음역은 대연역입니다. 하차하실려면 화면 중앙의 버튼을 눌러주세요."),),
         ],
       ),
     );

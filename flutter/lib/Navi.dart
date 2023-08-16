@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:eolleroad/AssistButton.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -19,10 +20,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   void _startListening() async {
     bool available = await _speech.initialize(
-      onStatus: (status) {
-      },
-      onError: (error) {
-      },
+      onStatus: (status) {},
+      onError: (error) {},
     );
 
     if (available) {
@@ -68,7 +67,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
     }
   }
 
-
   void _toggleListening() {
     if (_isListening) {
       _stopListening();
@@ -80,7 +78,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
       _isListening = !_isListening; // 버튼 상태 변경
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -94,14 +91,33 @@ class _NavigationScreenState extends State<NavigationScreen> {
         children: [
           Departure(),
           Arrival(),
-          ElevatedButton(
-            onPressed: _isListening ? _stopListening : _toggleListening,
-            style: ElevatedButton.styleFrom(backgroundColor: _isListening ? Color(0xff231FAD) : Color(0xffF6B818),),
-            child: Icon(
-              _isListening ? Icons.stop : Icons.mic,
-              size: 40,
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            child: ElevatedButton(
+              onPressed: _isListening ? _stopListening : _toggleListening,
+              style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      _isListening ? Color(0xff231FAD) : Color(0xffF6B818),
+                  fixedSize: Size(MediaQuery.of(context).size.width * 0.5, 50)),
+              child: Icon(
+                _isListening ? Icons.stop : Icons.mic,
+                size: 40,
+              ),
             ),
           ),
+          Container(
+            margin: EdgeInsets.only(top: 20, bottom: 40),
+            child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 70),
+                  backgroundColor: Colors.blue,
+                ),
+                child: Text("안내시작")),
+          ),
+          AssistButton(
+              speakmessage:
+                  "출발지는 부산광역시 남구 용소로 45, 목적지는 $_spokenText입니다. 안내를 시작하려면 파란색 안내시작버튼을 눌러주세요. 목적지를 다시 입력하시려면 노란색 마이크 버튼을 눌러 다시 말해주세요")
         ],
       ),
     );
@@ -140,7 +156,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         children: [
           Container(
             margin: EdgeInsets.only(bottom: 20),
-            child: Text('도착지',
+            child: Text('목적지',
                 style: TextStyle(color: Colors.white, fontSize: 40)),
           ),
           Container(
