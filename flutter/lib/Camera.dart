@@ -1,8 +1,10 @@
+import 'dart:math';
 import 'package:camera/camera.dart';
 import 'package:eolleroad/Option.dart';
 import 'package:eolleroad/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tflite/tflite.dart';
 import 'package:slidable_button/slidable_button.dart';
 
 class Camera extends StatefulWidget {
@@ -13,33 +15,129 @@ class Camera extends StatefulWidget {
 class _Camera extends State<Camera> {
   bool isWorking = false;
   String result = "";
-
   late CameraController cameraController;
   CameraImage? imgCamera; // Nullable로 변경
+
+  loadModel() async {
+    try {
+      await Tflite.loadModel(
+        model: "assets/mobilenet_v1_1.0_224.tflite",
+        labels: "assets/mobilenet_v1_1.0_224.txt",
+      );
+    } catch (e) {
+      print("Model loading error: $e");
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Model Loading Error"),
+          content: Text(
+              "Failed to load the model. Please make sure the model files are in the correct location."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("OK"),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    initCamera(); // 카메라 초기화는 initState에서 호출
+    loadModel();
+    if (cameras.isNotEmpty) {
+      initCamera();
+    }
   }
 
   initCamera() {
-    cameraController = CameraController(cameras[0], ResolutionPreset.medium);
-    cameraController.initialize().then((value) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        cameraController.startImageStream((imageFromStream) {
-          if (!isWorking) {
-            setState(() {
-              isWorking = true;
-              imgCamera = imageFromStream;
-            });
-          }
+    if (cameras.isNotEmpty) {
+      cameraController = CameraController(cameras[0], ResolutionPreset.medium);
+      cameraController.initialize().then((value) {
+        if (!mounted) {
+          return;
+        }
+
+        setState(() {
+          cameraController.startImageStream((imageFromStream) {
+            if (!isWorking) {
+              setState(() {
+                isWorking = true;
+                imgCamera = imageFromStream;
+                print('hello');
+                runModelOnStreamFrames();
+              });
+            }
+          });
         });
+      }).catchError((error) {
+        print("Camera initialization error: $error");
+        // TODO: 에러 처리 로직 추가 (메시지 표시 등)
       });
-    });
+    } else {
+      print("No cameras available.");
+      // TODO: 카메라 없음 처리 로직 추가 (메시지 표시 등)
+    }
+  }
+
+  runModelOnStreamFrames() async {
+    try {
+      if (imgCamera != null) {
+        var recognitions = await Tflite.runModelOnFrame(
+          bytesList: imgCamera!.planes.map((plane) {
+            return plane.bytes;
+          }).toList(),
+          imageHeight: imgCamera!.height,
+          imageWidth: imgCamera!.width,
+          imageMean: 127.5,
+          imageStd: 127.5,
+          rotation: 90,
+          numResults: 3,
+          threshold: 0.1,
+        );
+        result = "";
+
+        recognitions!.forEach((response) {
+          result += response["label"] +
+              "  " +
+              (response["confidence"] as double).toStringAsFixed(2) +
+              "\n\n";
+        });
+        setState(() {
+          result;
+        });
+        isWorking = false;
+      }
+    } catch (e) {
+      print("Model execution error: $e");
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Model Execution Error"),
+          content: Text("Failed to run the model. Please try again."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("OK"),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() async {
+    super.dispose();
+
+    await Tflite.close();
+    cameraController?.dispose();
   }
 
   @override
@@ -49,9 +147,6 @@ class _Camera extends State<Camera> {
           child: Scaffold(
         backgroundColor: Color(0xff2A2A2),
         body: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage("")),
-            ),
             child: Column(
               children: [
                 Stack(children: [
