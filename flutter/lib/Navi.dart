@@ -122,7 +122,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 margin: EdgeInsets.only(bottom: 20),
                 child: AssistButton(
                     speakmessage:
-                        "출발지는 부산광역시 남구 용소로 45, 목적지는 $_spokenText입니다. 안내를 시작하려면 파란색 안내시작버튼을 눌러주세요. 목적지를 다시 입력하시려면 노란색 마이크 버튼을 눌러 다시 말해주세요")),
+                        "출발지는 현재위치, 목적지는 $_spokenText입니다. 안내를 시작하려면 파란색 안내시작버튼을 눌러주세요. 목적지를 다시 입력하시려면 노란색 마이크 버튼을 눌러 다시 말해주세요")),
           ),
         ],
       ),

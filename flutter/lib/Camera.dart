@@ -1,8 +1,10 @@
 import 'dart:math';
 import 'package:camera/camera.dart';
+import 'package:eolleroad/AssistButton.dart';
 import 'package:eolleroad/Option.dart';
 import 'package:eolleroad/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:tflite/tflite.dart';
 import 'package:slidable_button/slidable_button.dart';
@@ -143,53 +145,49 @@ class _Camera extends State<Camera> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            child: Column(
-          children: [
-            Stack(children: [
-              Center(
-                //alignment: Alignment.center,
-                child: TextButton(
-                  onPressed: () {
-                    initCamera();
-                  },
-                  child: Container(
-                      //margin: EdgeInsets.only(top: 35),
-                      height: MediaQuery.of(context).size.height*0.7,
-                      //width: 360,
-                      child: imgCamera == null
-                          ? Container(
-                              //height: 270,
-                              //width: 360,
-                              child: Icon(Icons.photo_camera_front,
-                                  color: Colors.blueAccent, size: 40),
-                            )
-                          : AspectRatio(
-                              aspectRatio: cameraController.value.aspectRatio,
-                              child: CameraPreview(cameraController),
-                            )),
-                ),
-              ),
-            ]),
+      body: Container(
+          child: Column(
+        children: [
+          Stack(children: [
             Center(
-              child: Container(
-                  //margin: EdgeInsets.only(top: 55.0),
-                  child: SingleChildScrollView(
-                      child: Text(
-                    result,
-                    style: TextStyle(
-                        backgroundColor: Colors.black87,
-                        fontSize: 30.0,
-                        color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ))),
+              //alignment: Alignment.center,
+              child: TextButton(
+                onPressed: () {
+                  initCamera();
+                },
+                child: Container(
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    child: imgCamera == null
+                        ? Container(
+                            child: Icon(Icons.photo_camera_front,
+                                color: Colors.blueAccent, size: 40),
+                          )
+                        : AspectRatio(
+                            aspectRatio: cameraController.value.aspectRatio,
+                            child: CameraPreview(cameraController),
+                          )),
+              ),
             ),
-            Container(
-              //margin: EdgeInsets.only(
-                  //top: MediaQuery.of(context).size.height * 0.1),
+          ]),
+          Center(
+            child: Container(
+                //margin: EdgeInsets.only(top: 55.0),
+                child: SingleChildScrollView(
+                    child: Text(
+              result,
+              style: TextStyle(
+                  backgroundColor: Colors.black87,
+                  fontSize: 30.0,
+                  color: Colors.white),
+              textAlign: TextAlign.center,
+            ))),
+          ),
+          Expanded(
+            child: Container(
+              alignment: Alignment.bottomCenter,
               child: HorizontalSlidableButton(
                 width: MediaQuery.of(context).size.width * 0.8,
-                //height: 80,
+                height: 80,
                 buttonWidth: 180.0,
                 color: Colors.white,
                 buttonColor: Color(0xffF6B818),
@@ -201,8 +199,15 @@ class _Camera extends State<Camera> {
                 onChanged: (value) => (value) {},
               ),
             ),
-          ],
-        )),
+          ),
+          Expanded(
+              child: Container(
+                  alignment: Alignment.bottomCenter,
+                  child: AssistButton(
+                    speakmessage: 'hello',
+                  )))
+        ],
+      )),
     );
   }
 }
