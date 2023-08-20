@@ -1,7 +1,12 @@
 import 'package:eolleroad/Home.dart';
+import 'package:eolleroad/Navi.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:camera/camera.dart';
+
+import 'BusStop.dart';
+import 'Camera.dart';
+import 'Option.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -21,6 +26,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
+      initialRoute: '/', //initialRoute 설정해야됨
+      getPages: [
+        GetPage(name: '/', page: () => Option()),
+        GetPage(name: '/busStop', page: () => BusStop()),
+        GetPage(name: '/camera', page: () => Camera()),
+        GetPage(name: '/navi', page: () => NavigationScreen()),
+      ],
       home: const Home(),
     );
   }

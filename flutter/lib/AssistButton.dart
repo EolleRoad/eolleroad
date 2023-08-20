@@ -30,9 +30,9 @@ class _AssistButtonState extends State<AssistButton> {
         },
         style: ElevatedButton.styleFrom(
           fixedSize: Size(MediaQuery.of(context).size.width * 0.95, 70),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.pink,
         ),
-        child: Text("Press me"), // 버튼에 텍스트 추가
+        child: Text("어시스트 버튼"), // 버튼에 텍스트 추가
       ),
     );
   }

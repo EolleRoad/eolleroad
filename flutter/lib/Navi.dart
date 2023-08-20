@@ -140,7 +140,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                   border: Border.all(width: 1, color: Color(0xffF6B818))),
-              child: Text('부산광역시 남구 용소로 45',
+              child: Text('현재 위치',
                   style: TextStyle(color: Colors.white, fontSize: 25)))
         ],
       ),

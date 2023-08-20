@@ -96,7 +96,7 @@ class _Camera extends State<Camera> {
           imageMean: 127.5,
           imageStd: 127.5,
           rotation: 90,
-          numResults: 3,
+          numResults: 1,
           threshold: 0.1,
         );
         result = "";
@@ -142,9 +142,7 @@ class _Camera extends State<Camera> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SafeArea(
-          child: Scaffold(
+    return Scaffold(
         body: Container(
             child: Column(
           children: [
@@ -156,13 +154,13 @@ class _Camera extends State<Camera> {
                     initCamera();
                   },
                   child: Container(
-                      margin: EdgeInsets.only(top: 35),
-                      height: 270,
-                      width: 360,
+                      //margin: EdgeInsets.only(top: 35),
+                      height: MediaQuery.of(context).size.height*0.7,
+                      //width: 360,
                       child: imgCamera == null
                           ? Container(
-                              height: 270,
-                              width: 360,
+                              //height: 270,
+                              //width: 360,
                               child: Icon(Icons.photo_camera_front,
                                   color: Colors.blueAccent, size: 40),
                             )
@@ -175,7 +173,7 @@ class _Camera extends State<Camera> {
             ]),
             Center(
               child: Container(
-                  margin: EdgeInsets.only(top: 55.0),
+                  //margin: EdgeInsets.only(top: 55.0),
                   child: SingleChildScrollView(
                       child: Text(
                     result,
@@ -187,11 +185,11 @@ class _Camera extends State<Camera> {
                   ))),
             ),
             Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.1),
+              //margin: EdgeInsets.only(
+                  //top: MediaQuery.of(context).size.height * 0.1),
               child: HorizontalSlidableButton(
                 width: MediaQuery.of(context).size.width * 0.8,
-                height: 80,
+                //height: 80,
                 buttonWidth: 180.0,
                 color: Colors.white,
                 buttonColor: Color(0xffF6B818),
@@ -205,7 +203,6 @@ class _Camera extends State<Camera> {
             ),
           ],
         )),
-      )),
     );
   }
 }
