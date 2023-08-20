@@ -151,6 +151,7 @@ class _Camera extends State<Camera> {
       }
     });
     return Scaffold(
+      backgroundColor: Color(0xff2A2A2),
       body: Container(
           child: Column(
         children: [
