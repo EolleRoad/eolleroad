@@ -19,6 +19,7 @@ class _Camera extends State<Camera> {
   String result = "";
   late CameraController cameraController;
   CameraImage? imgCamera; // Nullable로 변경
+  RxBool isSlideCompleted = false.obs; // Initialize with false
 
   loadModel() async {
     try {
@@ -144,6 +145,11 @@ class _Camera extends State<Camera> {
 
   @override
   Widget build(BuildContext context) {
+    isSlideCompleted.listen((completed) {
+      if (completed) {
+        Get.back(); // 상태값 받아서 전으로 돌아가기
+      }
+    });
     return Scaffold(
       body: Container(
           child: Column(
@@ -196,7 +202,9 @@ class _Camera extends State<Camera> {
                     child: Text('안내종료',
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold))),
-                onChanged: (value) => (value) {},
+                onChanged: (value) {
+                  isSlideCompleted.value = true; // Update the slide completion status
+                },
               ),
             ),
           ),
@@ -204,7 +212,7 @@ class _Camera extends State<Camera> {
               child: Container(
                   alignment: Alignment.bottomCenter,
                   child: AssistButton(
-                    speakmessage: 'hello',
+                    speakmessage: '000 안내 중입니다. 종료하시려면 노란색 안내종료를 왼쪽에서 오른쪽으로 슬라이드 해주세요.',
                   )))
         ],
       )),
