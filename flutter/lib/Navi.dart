@@ -106,7 +106,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 20, bottom: 40),
+            margin: EdgeInsets.only(top: 40),
             child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -115,9 +115,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 ),
                 child: Text("안내시작")),
           ),
-          AssistButton(
-              speakmessage:
-                  "출발지는 부산광역시 남구 용소로 45, 목적지는 $_spokenText입니다. 안내를 시작하려면 파란색 안내시작버튼을 눌러주세요. 목적지를 다시 입력하시려면 노란색 마이크 버튼을 눌러 다시 말해주세요")
+          Expanded(
+            // 화면 맨 아래에 위치하도록
+            child: Container(
+                alignment: Alignment.bottomCenter,
+                margin: EdgeInsets.only(bottom: 20),
+                child: AssistButton(
+                    speakmessage:
+                        "출발지는 부산광역시 남구 용소로 45, 목적지는 $_spokenText입니다. 안내를 시작하려면 파란색 안내시작버튼을 눌러주세요. 목적지를 다시 입력하시려면 노란색 마이크 버튼을 눌러 다시 말해주세요")),
+          ),
         ],
       ),
     );
