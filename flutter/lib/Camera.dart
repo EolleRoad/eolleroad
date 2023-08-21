@@ -20,9 +20,11 @@ class _Camera extends State<Camera> {
 
   loadModel() async {
     try {
+      print('hello');
+
       await Tflite.loadModel(
-        model: "assets/mobilenet_v1_1.0_224.tflite",
-        labels: "assets/mobilenet_v1_1.0_224.txt",
+        model: "assets/eolleroad.tflite",
+        labels: "assets/eolleroad.txt",
       );
     } catch (e) {
       print("Model loading error: $e");
@@ -68,7 +70,6 @@ class _Camera extends State<Camera> {
               setState(() {
                 isWorking = true;
                 imgCamera = imageFromStream;
-                print('hello');
                 runModelOnStreamFrames();
               });
             }
@@ -91,8 +92,8 @@ class _Camera extends State<Camera> {
           bytesList: imgCamera!.planes.map((plane) {
             return plane.bytes;
           }).toList(),
-          imageHeight: imgCamera!.height,
-          imageWidth: imgCamera!.width,
+          imageHeight: 180,
+          imageWidth: 180,
           imageMean: 127.5,
           imageStd: 127.5,
           rotation: 90,
